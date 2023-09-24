@@ -3,9 +3,6 @@ package services;
 import dao.generic.IGenericDao;
 import domain.IPersistente;
 import exception.DaoException;
-import exception.MaisDeUmRegistroException;
-import exception.TableException;
-import exception.TipoChaveNaoEncontradaException;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -19,7 +16,7 @@ public abstract class GenericService <T extends IPersistente, E extends Serializ
     }
 
     @Override
-    public T cadastrar(T entity) throws TipoChaveNaoEncontradaException, DaoException {
+    public T cadastrar(T entity) throws DaoException {
         return this.dao.cadastrar(entity);
     }
 
@@ -29,12 +26,12 @@ public abstract class GenericService <T extends IPersistente, E extends Serializ
     }
 
     @Override
-    public T alterar(T entity) throws TipoChaveNaoEncontradaException, DaoException {
+    public T alterar(T entity) throws DaoException {
         return this.dao.alterar(entity);
     }
 
     @Override
-    public T consultar(E valor) throws MaisDeUmRegistroException, TableException, DaoException {
+    public T consultar(E valor) throws DaoException {
         return this.dao.consultar(valor);
     }
 

@@ -2,21 +2,18 @@ package services;
 
 import domain.IPersistente;
 import exception.DaoException;
-import exception.MaisDeUmRegistroException;
-import exception.TableException;
-import exception.TipoChaveNaoEncontradaException;
 
 import java.io.Serializable;
 import java.util.Collection;
 
 public interface IGenericService <T extends IPersistente, E extends Serializable> {
-    public T cadastrar(T entity) throws TipoChaveNaoEncontradaException, DaoException;
+    T cadastrar(T entity) throws DaoException;
 
-    public void excluir(T entity) throws DaoException;
+    void excluir(T entity) throws DaoException;
 
-    public T alterar(T entity) throws TipoChaveNaoEncontradaException, DaoException;
+    T alterar(T entity) throws DaoException;
 
-    public T consultar(E valor) throws MaisDeUmRegistroException, TableException, DaoException;
+    T consultar(E valor) throws DaoException;
 
-    public Collection<T> buscarTodos() throws DaoException;
+    Collection<T> buscarTodos() throws DaoException;
 }

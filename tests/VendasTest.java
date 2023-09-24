@@ -5,7 +5,7 @@ import domain.Cliente;
 import domain.Produto;
 import domain.Venda;
 import exception.DaoException;
-import exception.TipoChaveNaoEncontradaException;
+import exception.SemEstoqueException;
 import mock.MockCliente;
 import mock.MockProduto;
 import mock.MockVenda;
@@ -61,7 +61,7 @@ public class VendasTest {
     }
 
     @Test
-    public void CadastrarAlterarNovaVenda() throws TipoChaveNaoEncontradaException, DaoException {
+    public void CadastrarAlterarNovaVenda() throws DaoException, SemEstoqueException {
         mockVenda = mockVe.getVenda01();
         mockVenda.setId(null);
         mockVenda.setCliente(mockCliente);
@@ -99,7 +99,7 @@ public class VendasTest {
     }
 
     @Test
-    public void CancelarVenda() throws DaoException, TipoChaveNaoEncontradaException {
+    public void CancelarVenda() throws DaoException, SemEstoqueException {
         mockVenda = mockVe.getVenda01();
         mockVenda.setId(null);
         mockVenda.setCliente(mockCliente);
@@ -120,7 +120,7 @@ public class VendasTest {
     }
 
     @Test
-    public void FinalizarVenda() throws DaoException, TipoChaveNaoEncontradaException {
+    public void FinalizarVenda() throws DaoException, SemEstoqueException {
         mockVenda = mockVe.getVenda01();
         mockVenda.setId(null);
         mockVenda.setCliente(mockCliente);
@@ -140,8 +140,8 @@ public class VendasTest {
         Assert.assertEquals(vendaConsultada2.getStatus(), Venda.Status.CONCLUIDA);
     }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void AdicionarProdutoSemEstoqueExpectError() {
+    @Test(expected = SemEstoqueException.class)
+    public void AdicionarProdutoSemEstoqueExpectError() throws SemEstoqueException {
         mockVenda = mockVe.getVenda01();
         mockVenda.setCliente(mockCliente);
         Assert.assertEquals(mockVenda.getCliente().getNome(), mockCliente.getNome());
@@ -153,7 +153,7 @@ public class VendasTest {
     }
 
     @Test
-    public void AdicionarProdutoComEstoque() {
+    public void AdicionarProdutoComEstoque() throws SemEstoqueException {
         mockVenda = mockVe.getVenda01();
         mockVenda.setCliente(mockCliente);
         Assert.assertEquals(mockVenda.getCliente().getNome(), mockCliente.getNome());

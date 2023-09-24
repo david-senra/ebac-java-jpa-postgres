@@ -2,7 +2,6 @@ package dao.generic;
 
 import domain.IPersistente;
 import exception.DaoException;
-import exception.TipoChaveNaoEncontradaException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -23,7 +22,7 @@ public class GenericDao <T extends IPersistente, E extends Serializable> impleme
     }
 
     @Override
-    public T cadastrar(T entity) throws TipoChaveNaoEncontradaException, DaoException {
+    public T cadastrar(T entity) throws DaoException {
         openConnection();
         entityManager.persist(entity);
         entityManager.getTransaction().commit();

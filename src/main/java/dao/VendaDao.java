@@ -6,7 +6,6 @@ import domain.Produto;
 import domain.ProdutoQuantidade;
 import domain.Venda;
 import exception.DaoException;
-import exception.TipoChaveNaoEncontradaException;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -21,7 +20,7 @@ public class VendaDao extends GenericDao<Venda, String> implements IVendaDao {
     }
 
     @Override
-    public void finalizarVenda(Venda venda) throws TipoChaveNaoEncontradaException, DaoException {
+    public void finalizarVenda(Venda venda) {
         super.alterar(venda);
     }
 
@@ -31,12 +30,12 @@ public class VendaDao extends GenericDao<Venda, String> implements IVendaDao {
     }
 
     @Override
-    public void excluir(Venda entity) throws DaoException {
+    public void excluir(Venda entity) {
         throw new UnsupportedOperationException("OPERAÇÃO NÃO PERMITIDA");
     }
 
     @Override
-    public Venda cadastrar(Venda entity) throws TipoChaveNaoEncontradaException, DaoException {
+    public Venda cadastrar(Venda entity) throws DaoException {
         try {
             openConnection();
             entity.getProdutos().forEach(prod -> {

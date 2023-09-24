@@ -1,6 +1,7 @@
 package domain;
 
 import dao.ProdutoDao;
+import exception.SemEstoqueException;
 import factories.FactoryProdutos;
 
 import javax.persistence.*;
@@ -58,7 +59,7 @@ public class Venda implements IPersistente {
         produtos = new HashSet<>();
     }
 
-    public void adicionarProduto(Produto produto, Integer quantidade) {
+    public void adicionarProduto(Produto produto, Integer quantidade) throws SemEstoqueException {
         validarStatus();
         validarEstoque(produto, quantidade);
         Optional<ProdutoQuantidade> op =
@@ -93,9 +94,9 @@ public class Venda implements IPersistente {
         }
     }
 
-    private void validarEstoque(Produto produto, Integer quantidade) {
+    private void validarEstoque(Produto produto, Integer quantidade) throws SemEstoqueException {
         if (produto.getEstoque() <= quantidade) {
-            throw new UnsupportedOperationException("ESTOQUE INSUFICIENTE");
+            throw new SemEstoqueException("ESTOQUE INSUFICIENTE");
         }
     }
 
